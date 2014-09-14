@@ -1,0 +1,138 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://foo:U@api.copperegg.com/v2/alerts/schedules.json
+    body:
+      encoding: UTF-8
+      string: '{"name":"spec_test","state":"disabled","duration":7,"start_time":"2014-09-14T10:21:40Z","match":{"tag":["foo"]}}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 14 Sep 2014 05:21:45 CDT
+      Etag:
+      - '"cf6a6d6c2b8b2d2c3fd23de31e3f63f3"'
+      Server:
+      - nginx/1.2.8 + Phusion Passenger 4.0.2
+      Status:
+      - 200 OK
+      X-Ce-Now:
+      - '1410690105'
+      X-Powered-By:
+      - Phusion Passenger 4.0.2
+      X-Runtime:
+      - '0.148460'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"id":1284,"name":"spec_test","start_time":"2014-09-14T10:21:40Z","end_time":"2014-09-14T10:28:40Z","duration":7,"state":"disabled","match":{"tag":["foo"]},"match_exclude":{},"recurring":false}'
+    http_version: 
+  recorded_at: Sun, 14 Sep 2014 10:21:45 GMT
+- request:
+    method: post
+    uri: https://foo:U@api.copperegg.com/v2/alerts/schedules.json
+    body:
+      encoding: UTF-8
+      string: '{"name":"spec_test","state":"disabled","duration":7,"start_time":"2014-09-14T10:21:40Z","match":{"tag":["foo"]}}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 14 Sep 2014 05:21:46 CDT
+      Etag:
+      - '"55c9edd9e0005127f6dd7037dda97f00"'
+      Server:
+      - nginx/1.2.8 + Phusion Passenger 4.0.2
+      Status:
+      - 200 OK
+      X-Ce-Now:
+      - '1410690106'
+      X-Powered-By:
+      - Phusion Passenger 4.0.2
+      X-Runtime:
+      - '0.060226'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"id":1285,"name":"spec_test","start_time":"2014-09-14T10:21:45Z","end_time":"2014-09-14T10:28:45Z","duration":7,"state":"disabled","match":{"tag":["foo"]},"match_exclude":{},"recurring":false}'
+    http_version: 
+  recorded_at: Sun, 14 Sep 2014 10:21:46 GMT
+- request:
+    method: post
+    uri: https://foo:U@api.copperegg.com/v2/alerts/schedules.json
+    body:
+      encoding: UTF-8
+      string: '{"name":"spec_test","state":"disabled","duration":7,"start_time":"2014-09-14T10:21:40Z","match":{"tag":["foo"]}}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 14 Sep 2014 05:21:46 CDT
+      Etag:
+      - '"68f3d83eb36e2c9173e077a57bc774cd"'
+      Server:
+      - nginx/1.2.8 + Phusion Passenger 4.0.2
+      Status:
+      - 200 OK
+      X-Ce-Now:
+      - '1410690106'
+      X-Powered-By:
+      - Phusion Passenger 4.0.2
+      X-Runtime:
+      - '0.029386'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '193'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"id":1286,"name":"spec_test","start_time":"2014-09-14T10:21:46Z","end_time":"2014-09-14T10:28:46Z","duration":7,"state":"disabled","match":{"tag":["foo"]},"match_exclude":{},"recurring":false}'
+    http_version: 
+  recorded_at: Sun, 14 Sep 2014 10:21:46 GMT
+recorded_with: VCR 2.9.3

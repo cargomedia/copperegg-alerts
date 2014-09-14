@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://foo:U@api.copperegg.com/v2/alerts/schedules.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 14 Sep 2014 05:24:44 CDT
+      Etag:
+      - '"d93c69f8ab9a5078a9f9c593386a2db9"'
+      Server:
+      - nginx/1.2.8 + Phusion Passenger 4.0.2
+      Status:
+      - 200 OK
+      X-Ce-Now:
+      - '1410690284'
+      X-Powered-By:
+      - Phusion Passenger 4.0.2
+      X-Runtime:
+      - '0.027304'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '[{"id":445,"name":"swapping stream servers","start_time":"2014-02-25T19:50:54Z","end_time":"2014-02-25T20:00:54Z","duration":10,"state":"disabled","match":{"tag":["softlayer"]},"match_exclude":{},"recurring":false},{"id":448,"name":"backup1
+        upgrade","start_time":"2014-02-26T18:54:56Z","end_time":"2014-02-26T19:04:56Z","duration":10,"state":"disabled","match":{"tag":["hetzner"]},"match_exclude":{},"recurring":false},{"id":453,"name":"expected
+        downtime","start_time":"2014-07-30T10:33:33Z","end_time":"2014-07-30T11:03:33Z","duration":30,"state":"disabled","match":{},"match_exclude":{},"recurring":false},{"id":768,"name":"mysql
+        load (data copy etc)","start_time":"2014-07-10T10:06:51Z","end_time":"2014-07-10T11:06:51Z","duration":60,"state":"disabled","match":{"tag":["softlayer--vlan1850--db4","softlayer--vlan1850--db5"]},"match_exclude":{},"recurring":false},{"id":805,"name":"db5
+        disk replacement","start_time":"2014-07-04T15:34:02Z","end_time":"2014-07-04T20:34:02Z","duration":300,"state":"disabled","match":{"tag":["softlayer--vlan1850--db5"]},"match_exclude":{},"recurring":false},{"id":1021,"name":"cluster
+        investigation","start_time":"2014-07-30T17:32:23Z","end_time":"2014-07-30T18:32:23Z","duration":60,"state":"disabled","match":{"tag":["softlayer--mongodb"]},"match_exclude":{},"recurring":false},{"id":1233,"name":"sk
+        release","start_time":"2014-09-08T09:52:11Z","end_time":"2014-09-08T10:07:11Z","duration":15,"state":"disabled","match":{"tag":["softlayer"]},"match_exclude":{},"recurring":false},{"id":1284,"name":"spec_test","start_time":"2014-09-14T10:21:40Z","end_time":"2014-09-14T10:28:40Z","duration":7,"state":"disabled","match":{"tag":["foo"]},"match_exclude":{},"recurring":false},{"id":1285,"name":"spec_test","start_time":"2014-09-14T10:21:45Z","end_time":"2014-09-14T10:28:45Z","duration":7,"state":"disabled","match":{"tag":["foo"]},"match_exclude":{},"recurring":false},{"id":1286,"name":"spec_test","start_time":"2014-09-14T10:21:46Z","end_time":"2014-09-14T10:28:46Z","duration":7,"state":"disabled","match":{"tag":["foo"]},"match_exclude":{},"recurring":false}]'
+    http_version: 
+  recorded_at: Sun, 14 Sep 2014 10:24:44 GMT
+recorded_with: VCR 2.9.3

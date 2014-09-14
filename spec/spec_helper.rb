@@ -1,6 +1,6 @@
 require 'copperegg'
-require 'webmock/rspec'
 require 'webmock'
+require 'vcr'
 
 module Copperegg
   module Test
@@ -8,5 +8,8 @@ module Copperegg
   end
 end
 
-WebMock.disable_net_connect!(allow_localhost: true)
-WebMock.enable!
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  c.hook_into :webmock
+end
+
