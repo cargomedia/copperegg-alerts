@@ -16,24 +16,33 @@ module Copperegg
       return self
     end
 
-    def get(resource)
+    def get(resource, *args)
       HTTParty.get(@api_base_uri + resource, @auth.to_hash)
     end
 
     JSON = {'content-type' => 'application/json'}
 
-    def post(resource, body)
-      HTTParty.post(@api_base_uri + resource, @auth.merge({:headers => JSON}.merge({:body => body.to_json})))
+    def method_missing(method, resource, *args)
+      if method.to_s =~ /\?$/
+        method = method.to_s.sub!(/\?$/, '')
+        result = send(method.to_sym, resource, *args)
+        return result if result.code == 200
+      end
     end
 
-    def put(resource, body)
-      HTTParty.put(@api_base_uri + resource, @auth.merge({:headers => JSON}.merge({:body => body.to_json})))
+    def put(resource, *args)
+      body = {:body => args.to_json}
+      HTTParty.put(@api_base_uri + resource, @auth.merge({:headers => JSON}.merge(body)))
     end
 
-    def delete(resource)
+    def delete(resource, *args)
       HTTParty.delete(@api_base_uri + resource, @auth.to_hash)
     end
 
+    def post(resource, *args)
+      body = {:body => args.to_json}
+      HTTParty.post(@api_base_uri + resource, @auth.merge({:headers => JSON}.merge(body)))
+    end
   end
 end
 
