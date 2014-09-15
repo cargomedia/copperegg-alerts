@@ -11,12 +11,7 @@ module Copperegg
 
     def set_schedule(name, tags = {})
       reset_schedules(name)
-      result = create_schedule(name, tags)
-      if result.code == 200
-        @schedules << result.parsed_response
-      else
-        warn("No alert schedule set (HTTP response code: #{result.code})")
-      end
+      create_schedule(name, tags)
     end
 
     def modify_schedule(name, *args)
@@ -36,13 +31,17 @@ module Copperegg
       if result = @client.post?('alerts/schedules.json', defaults)
         @schedules << result.parsed_response
       else
-        warn("No alert schedule set (HTTP response code: #{result.code})")
+        warn("No alert schedule created (HTTP response code: #{result.code})")
       end
     end
 
     def reset_schedules(name)
       selected_schedules = @schedules.reject! { |h| h['name'] == name }
-      selected_schedules.each { |s| @client.delete("alerts/schedules/#{s['id']}.json") } if selected_schedules
+      selected_schedules.each { |s|
+        if not @client.delete?("alerts/schedules/#{s['id']}.json")
+          @schedules << s
+        end
+      } if selected_schedules
     end
   end
 end
