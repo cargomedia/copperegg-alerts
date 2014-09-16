@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Copperegg::VERSION
   spec.authors       = ['Cargo Media', 'ppp0']
   spec.email         = 'hello@cargomedia.ch'
-  spec.summary       = 'A very minimalistic Copperegg API client for managing alerts'
+  spec.summary       = 'A very minimalistic Copperegg API client for managing alert schedules'
   spec.description   = 'Set and remove alert silencing schedules aka maintenance windows'
-  spec.homepage      = 'www.cargomedia.ch'
+  spec.homepage      = 'https://github.com/cargomedia/copperegg-alerts'
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
