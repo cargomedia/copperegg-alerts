@@ -15,8 +15,19 @@ module Copperegg
     end
 
     def modify_schedule(name, *args)
-      @schedules.select { |h| h['name'] == name }.each do |schedule|
-        @client.put('alerts/schedules/' + schedule['id'] + '.json', body)
+      body = {}
+      args.each { |arg| body.deep_merge!(arg) }
+      selected_schedules = @schedules.select { |h| h['name'] == name }
+      if selected_schedules
+        @schedules -= selected_schedules
+        selected_schedules.each do |s|
+          result = @client.put?("alerts/schedules/#{s['id']}.json", body)
+          if result == nil
+            @schedules << s
+          else
+            @schedules << result
+          end
+        end
       end
     end
 
@@ -30,18 +41,19 @@ module Copperegg
       args.each { |arg| defaults.deep_merge!(arg) }
       if result = @client.post?('alerts/schedules.json', defaults)
         @schedules << result.parsed_response
-      else
-        warn("No alert schedule created (HTTP response code: #{result.code})")
       end
     end
 
     def reset_schedules(name)
-      selected_schedules = @schedules.reject! { |h| h['name'] == name }
-      selected_schedules.each { |s|
-        if not @client.delete?("alerts/schedules/#{s['id']}.json")
-          @schedules << s
+      selected_schedules = @schedules.select { |h| h['name'] == name }
+      if selected_schedules
+        @schedules -= selected_schedules
+        selected_schedules.each do |s|
+          if @client.delete?("alerts/schedules/#{s['id']}.json") == nil
+            @schedules << s
+          end
         end
-      } if selected_schedules
+      end
     end
   end
 end
