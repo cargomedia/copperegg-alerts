@@ -1,6 +1,6 @@
 # Copperegg::Alerts
 
-TODO: Write a gem description
+Minimalistic API client to manipulate [Copperegg's alert schedules](http://dev.copperegg.com/alerts/schedules.html) aka Maintenance Mode
 
 ## Installation
 
