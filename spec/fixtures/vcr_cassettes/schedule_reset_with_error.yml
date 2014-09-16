@@ -1,0 +1,122 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://foo:U@api.copperegg.com/v2/alerts/schedules/1284.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 14 Sep 2014 05:26:02 CDT
+      Etag:
+      - '"99914b932bd37a50b983c5e7c90ae93b"'
+      Server:
+      - nginx/1.2.8 + Phusion Passenger 4.0.2
+      Status:
+      - 200 OK
+      X-Ce-Now:
+      - '1410690362'
+      X-Powered-By:
+      - Phusion Passenger 4.0.2
+      X-Runtime:
+      - '0.116250'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{}"
+    http_version: 
+  recorded_at: Sun, 14 Sep 2014 10:26:02 GMT
+- request:
+    method: delete
+    uri: https://foo:U@api.copperegg.com/v2/alerts/schedules/1285.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 14 Sep 2014 05:26:03 CDT
+      Etag:
+      - '"99914b932bd37a50b983c5e7c90ae93b"'
+      Server:
+      - nginx/1.2.8 + Phusion Passenger 4.0.2
+      Status:
+      - 200 OK
+      X-Ce-Now:
+      - '1410690363'
+      X-Powered-By:
+      - Phusion Passenger 4.0.2
+      X-Runtime:
+      - '0.035337'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{}"
+    http_version: 
+  recorded_at: Sun, 14 Sep 2014 10:26:03 GMT
+- request:
+    method: delete
+    uri: https://foo:U@api.copperegg.com/v2/alerts/schedules/1286.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Date:
+      - Tue, 16 Sep 2014 07:32:17 CDT
+      Server:
+      - nginx/1.2.8 + Phusion Passenger 4.0.2
+      Status:
+      - 500 Internal Server Error
+      X-Powered-By:
+      - Phusion Passenger 4.0.2
+      X-Runtime:
+      - '0.017949'
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"error":true,"error_type":"message","message":"internal error: Couldn''t
+        find MaintenanceSchedule with ID=1286 [WHERE (`maintenance_schedules`.site_id
+        = 15310)].  Please report this to support@copperegg.com"}'
+    http_version:
+  recorded_at: Tue, 16 Sep 2014 12:32:17 GMT
+recorded_with: VCR 2.9.3
