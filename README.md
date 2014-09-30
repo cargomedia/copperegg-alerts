@@ -1,4 +1,4 @@
-# Copperegg::Alerts
+# Copperegg::Alerts [![Build Status](https://travis-ci.org/cargomedia/copperegg-alerts.png)](https://travis-ci.org/cargomedia/copperegg-alerts)
 
 Minimalistic API client to manipulate [Copperegg's alert schedules](http://dev.copperegg.com/alerts/schedules.html) aka Maintenance Mode
 
@@ -8,22 +8,22 @@ Add this line to your application's Gemfile:
 
     gem 'copperegg-alerts'
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install copperegg-alerts
-
 ## Usage
 
-TODO: Write usage instructions here
+    require 'copperegg'
 
-## Contributing
+    # Set up client
+    Copperegg::Client.instance.auth_setup(API_KEY)
+    alerts = Copperegg::Alerts.new
 
-1. Fork it ( https://github.com/[my-github-username]/copperegg-alerts/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+    # Create a new alert schedule (maintenance mode)
+    # 
+    # Arguments:
+    # title - A name for the alert schedule
+    # [<arg1>[..<argN>] - Any argument from 'The Alert Schedule Hash' (http://dev.copperegg.com/alerts/schedules.html)
+    alerts.create_schedule('spec_test', 
+      'match' => {'tag' => ['foo', 'foo-bar']}, 
+      'state' => 'enabled', 
+      'duration' => 7, 
+      'start_time' => '2014-09-14T10:21:40Z'
+    )
