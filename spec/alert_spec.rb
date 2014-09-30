@@ -9,7 +9,7 @@ describe Copperegg::Alerts do
 
   before :each do
 
-    @client = Copperegg::Client.instance.auth_setup(Copperegg::Test::API_KEY)
+    Copperegg::Client.instance.auth_setup(Copperegg::Test::API_KEY)
     VCR.use_cassette('schedules', :record => :once, :match_requests_on => [:method, :path]) do
       @alerts = Copperegg::Alerts.new
     end
