@@ -13,6 +13,7 @@ Add this line to your application's Gemfile:
     require 'copperegg'
 
     # Set up client
+    
     Copperegg::Client.instance.auth_setup(API_KEY)
     alerts = Copperegg::Alerts.new
 
@@ -20,7 +21,9 @@ Add this line to your application's Gemfile:
     # 
     # Arguments:
     # title - A name for the alert schedule
-    # [<arg1>[..<argN>] - Any argument from 'The Alert Schedule Hash' (http://dev.copperegg.com/alerts/schedules.html)
+    # [<arg1>[..<argN>] - Any argument from 'The Alert Schedule Hash' 
+    # see http://dev.copperegg.com/alerts/schedules.html
+    
     alerts.create_schedule('spec_test', 
       'match' => {'tag' => ['foo', 'foo-bar']}, 
       'state' => 'enabled', 
