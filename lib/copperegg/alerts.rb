@@ -10,7 +10,7 @@ module Copperegg
     end
 
     def set_schedule(name, tags = {})
-      reset_schedules(name)
+      delete_schedules(name)
       create_schedule(name, tags)
     end
 
@@ -44,7 +44,7 @@ module Copperegg
       end
     end
 
-    def reset_schedules(name)
+    def delete_schedules(name)
       selected_schedules = @schedules.select { |h| h['name'] == name }
       if selected_schedules
         @schedules -= selected_schedules
