@@ -77,7 +77,7 @@ describe Copperegg::Alerts do
       end
       alert_schedule_after = @alerts.schedules.select { |schedule| schedule['name'] == schedule_name }
       diff = HashDiff.diff(alert_schedule_before.first, alert_schedule_after.first)
-      expect(diff).to eq([['~', 'duration', 7, 33], ['~', 'state', 'disabled', 'enabled' ]])
+      expect(diff).to eq([['~', 'duration', 7, 33], ['~', 'state', 'disabled', 'enabled']])
       expect(WebMock).to have_requested(:put, /.*alerts\/schedules\/\d+\.json$/).once
     end
   end
