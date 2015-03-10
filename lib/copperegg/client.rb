@@ -27,19 +27,33 @@ module Copperegg
       end
     end
 
-    ['get', 'post', 'put', 'delete'].each do |method|
-      define_method(method) do |resource, *args|
-        unless args.nil?
-          body = {}
-          args.each { |arg| body.deep_merge!(arg) }
-          @auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
-        end
-        response = HTTParty.send(method.to_sym, @api_base_uri + resource, @auth.to_hash)
-        if response.code != 200
-          raise("HTTP/#{method} Request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
-        end
-        response
+    def get(path)
+      _send(:get, path)
+    end
+
+    def post(path, body)
+      _send(:post, path, body)
+    end
+
+    def put(path, body)
+      _send(:put, path, body)
+    end
+
+    def delete(path)
+      _send(:delete, path)
+    end
+
+    private
+
+    def _send(method, path, body = {})
+      unless body.empty?
+        @auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
       end
+      response = HTTParty.send(method.to_sym, @api_base_uri + path, @auth.to_hash)
+      if response.code != 200
+        raise("HTTP/#{method} Request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
+      end
+      response
     end
 
   end
