@@ -21,10 +21,18 @@ describe Copperegg::Client do
       expect(@auth) == {:basic_auth => {:username => Copperegg::Test::API_KEY, :password => 'U'}}
     end
 
-    %w(get post put delete).each do |verb|
+    %w(get delete).each do |verb|
       it "returns nil on wrong #{verb}" do
         VCR.use_cassette('4xx', :record => :once, :match_requests_on => [:path], :allow_playback_repeats => true) do
-          expect(@client.send(verb + '?', 'veryWrong', {} )).to eq(nil)
+          expect { @client.send(verb + '?', 'veryWrong') }.to raise_error(RuntimeError)
+        end
+      end
+    end
+
+    %w(post put).each do |verb|
+      it "returns nil on wrong #{verb}" do
+        VCR.use_cassette('4xx', :record => :once, :match_requests_on => [:path], :allow_playback_repeats => true) do
+          expect { @client.send(verb + '?', 'veryWrong', {}) }.to raise_error(RuntimeError)
         end
       end
     end
