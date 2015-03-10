@@ -18,7 +18,11 @@ module Copperegg
     end
 
     def get(resource, *args)
-      HTTParty.get(@api_base_uri + resource, @auth.to_hash)
+      response = HTTParty.get(@api_base_uri + resource, @auth.to_hash)
+      if response.code != 200
+        raise("HTTP/Get request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
+      end
+      response
     end
 
     JSON = {'content-type' => 'application/json'}
@@ -35,12 +39,20 @@ module Copperegg
       define_method(method) do |resource, *args|
         body = {}
         args.each { |arg| body.deep_merge!(arg) }
-        HTTParty.send(method.to_sym, @api_base_uri + resource, @auth.merge({:headers => JSON}.merge({:body => body.to_json})))
+        response = HTTParty.send(method.to_sym, @api_base_uri + resource, @auth.merge({:headers => JSON}.merge({:body => body.to_json})))
+        if response.code != 200
+          raise("HTTP/#{method} Request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
+        end
+        response
       end
     end
 
     def delete(resource, *args)
-      HTTParty.delete(@api_base_uri + resource, @auth.to_hash)
+      response = HTTParty.delete(@api_base_uri + resource, @auth.to_hash)
+      if response.code != 200
+        raise("HTTP/Delete request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
+      end
+      response
     end
 
   end
