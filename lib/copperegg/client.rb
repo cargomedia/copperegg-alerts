@@ -46,7 +46,7 @@ module Copperegg
     private
 
     def _send(method, path, body = {})
-      auth = @auth
+      auth = @auth.clone
       unless body.empty?
         auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
       end
