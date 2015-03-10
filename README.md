@@ -14,8 +14,8 @@ Add this line to your application's Gemfile:
 
     # Set up client
     
-    Copperegg::Client.instance.auth_setup(API_KEY)
-    alerts = Copperegg::Alerts.new
+    Copperegg::Alerts::Client.instance.auth_setup(API_KEY)
+    schedule = Copperegg::Alerts::Schedule.new
 
     # Create a new alert schedule (maintenance mode)
     # 
@@ -24,7 +24,7 @@ Add this line to your application's Gemfile:
     # [<arg1>[..<argN>] - Any argument from 'The Alert Schedule Hash' 
     # see http://dev.copperegg.com/alerts/schedules.html
     
-    alerts.create_schedule('spec_test', 
+    schedule.create('spec_test',
       'match' => {'tag' => ['foo', 'foo-bar']}, 
       'state' => 'enabled', 
       'duration' => 7, 
