@@ -1,5 +1,5 @@
 module Copperegg
-  require 'copperegg/client'
-  require 'copperegg/alerts'
-  require "copperegg/version"
+  require 'copperegg/alerts/schedule'
+  require 'copperegg/alerts/client'
+  require 'copperegg/alerts/version'
 end

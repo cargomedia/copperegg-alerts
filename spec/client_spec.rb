@@ -1,16 +1,16 @@
 require 'spec_helper'
 require 'copperegg'
 
-describe Copperegg::Client do
+describe Copperegg::Alerts::Client do
 
   before :each do
-    @client = Copperegg::Client.instance.auth_setup(Copperegg::Test::API_KEY)
+    @client = Copperegg::Alerts::Client.instance.auth_setup(Copperegg::Alerts::Test::API_KEY)
   end
 
   describe 'Client' do
 
-    it 'is an instance of Copperegg::Client' do
-      expect(@client) === Copperegg::Client
+    it 'is an instance of Copperegg::Alerts::Client' do
+      expect(@client) === Copperegg::Alerts::Client
     end
 
     it 'has set the base_uri' do
@@ -18,7 +18,7 @@ describe Copperegg::Client do
     end
 
     it 'has set the auth hash' do
-      expect(@auth) == {:basic_auth => {:username => Copperegg::Test::API_KEY, :password => 'U'}}
+      expect(@auth) == {:basic_auth => {:username => Copperegg::Alerts::Test::API_KEY, :password => 'U'}}
     end
 
     %w(get post put delete).each do |verb|

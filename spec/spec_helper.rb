@@ -3,8 +3,10 @@ require 'webmock'
 require 'vcr'
 
 module Copperegg
-  module Test
-    API_KEY = 'foo'
+  module Alerts
+    module Test
+      API_KEY = 'foo'
+    end
   end
 end
 
