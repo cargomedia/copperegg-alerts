@@ -53,7 +53,7 @@ describe Copperegg::Alerts do
     it 'deletes schedules from the instance list variable only if api call was successful' do
       alerts_schedules_list_size_before = @alerts.schedules.size
       VCR.use_cassette('schedule_reset_with_error', :record => :once, :match_requests_on => [:method, :path]) do
-        expect { @alerts.delete_schedules('spec_test') }.to raise_error(RuntimeError)
+        expect { @alerts.delete_schedules('spec_test') }.to raise_error(RuntimeError, /HTTP.*failed/)
       end
       expect(alerts_schedules_list_size_before - @alerts.schedules.size).to eq(3)
       expect(WebMock).to have_requested(:delete, /.*alerts\/schedules\/\d+\.json$/).times(3)

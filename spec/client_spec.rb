@@ -24,7 +24,7 @@ describe Copperegg::Client do
     %w(get delete).each do |verb|
       it "returns nil on wrong #{verb}" do
         VCR.use_cassette('4xx', :record => :once, :match_requests_on => [:path], :allow_playback_repeats => true) do
-          expect { @client.send(verb + '?', 'veryWrong') }.to raise_error(RuntimeError)
+          expect { @client.send(verb + '?', 'veryWrong') }.to raise_error(RuntimeError, /HTTP.*failed/)
         end
       end
     end
@@ -32,7 +32,7 @@ describe Copperegg::Client do
     %w(post put).each do |verb|
       it "returns nil on wrong #{verb}" do
         VCR.use_cassette('4xx', :record => :once, :match_requests_on => [:path], :allow_playback_repeats => true) do
-          expect { @client.send(verb + '?', 'veryWrong', {}) }.to raise_error(RuntimeError)
+          expect { @client.send(verb + '?', 'veryWrong', {}) }.to raise_error(RuntimeError, /HTTP.*failed/)
         end
       end
     end
