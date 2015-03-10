@@ -17,14 +17,6 @@ module Copperegg
       return self
     end
 
-    def get(resource, *args)
-      response = HTTParty.get(@api_base_uri + resource, @auth.to_hash)
-      if response.code != 200
-        raise("HTTP/Get request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
-      end
-      response
-    end
-
     JSON = {'content-type' => 'application/json'}
 
     def method_missing(method, resource, *args)
@@ -35,24 +27,19 @@ module Copperegg
       end
     end
 
-    ['post', 'put'].each do |method|
+    ['get', 'post', 'put', 'delete'].each do |method|
       define_method(method) do |resource, *args|
-        body = {}
-        args.each { |arg| body.deep_merge!(arg) }
-        response = HTTParty.send(method.to_sym, @api_base_uri + resource, @auth.merge({:headers => JSON}.merge({:body => body.to_json})))
+        unless args.nil?
+          body = {}
+          args.each { |arg| body.deep_merge!(arg) }
+          @auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
+        end
+        response = HTTParty.send(method.to_sym, @api_base_uri + resource, @auth.to_hash)
         if response.code != 200
           raise("HTTP/#{method} Request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
         end
         response
       end
-    end
-
-    def delete(resource, *args)
-      response = HTTParty.delete(@api_base_uri + resource, @auth.to_hash)
-      if response.code != 200
-        raise("HTTP/Delete request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
-      end
-      response
     end
 
   end
