@@ -46,10 +46,11 @@ module Copperegg
     private
 
     def _send(method, path, body = {})
+      auth = @auth
       unless body.empty?
-        @auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
+        auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
       end
-      response = HTTParty.send(method.to_sym, @api_base_uri + path, @auth.to_hash)
+      response = HTTParty.send(method.to_sym, @api_base_uri + path, auth.to_hash)
       if response.code != 200
         raise("HTTP/#{method} Request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
       end
