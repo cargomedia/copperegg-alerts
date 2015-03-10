@@ -17,10 +17,6 @@ module Copperegg
       return self
     end
 
-    def get(resource, *args)
-      HTTParty.get(@api_base_uri + resource, @auth.to_hash)
-    end
-
     JSON = {'content-type' => 'application/json'}
 
     def method_missing(method, resource, *args)
@@ -31,16 +27,34 @@ module Copperegg
       end
     end
 
-    ['post', 'put'].each do |method|
-      define_method(method) do |resource, *args|
-        body = {}
-        args.each { |arg| body.deep_merge!(arg) }
-        HTTParty.send(method.to_sym, @api_base_uri + resource, @auth.merge({:headers => JSON}.merge({:body => body.to_json})))
-      end
+    def get(path)
+      _send(:get, path)
     end
 
-    def delete(resource, *args)
-      HTTParty.delete(@api_base_uri + resource, @auth.to_hash)
+    def post(path, body)
+      _send(:post, path, body)
+    end
+
+    def put(path, body)
+      _send(:put, path, body)
+    end
+
+    def delete(path)
+      _send(:delete, path)
+    end
+
+    private
+
+    def _send(method, path, body = {})
+      auth = @auth.clone
+      unless body.empty?
+        auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
+      end
+      response = HTTParty.send(method.to_sym, @api_base_uri + path, auth.to_hash)
+      if response.code != 200
+        raise("HTTP/#{method} Request failed. Response code `#{response.code}`, message `#{response.message}`, body `#{response.body}`")
+      end
+      response
     end
 
   end
