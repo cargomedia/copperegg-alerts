@@ -1,14 +1,17 @@
-# Copperegg::Alerts [![Build Status](https://travis-ci.org/cargomedia/copperegg-alerts.png)](https://travis-ci.org/cargomedia/copperegg-alerts)
+Copperegg::Alerts [![Build Status](https://travis-ci.org/cargomedia/copperegg-alerts.png)](https://travis-ci.org/cargomedia/copperegg-alerts)
+=================
 
 Minimalistic API client to manipulate [Copperegg's alert schedules](http://dev.copperegg.com/alerts/schedules.html) aka Maintenance Mode
 
-## Installation
+Installation
+------------
 
 Add this line to your application's Gemfile:
 
     gem 'copperegg-alerts'
 
-## Usage
+Usage
+-----
 see [http://dev.copperegg.com/alerts/schedules.html](http://dev.copperegg.com/alerts/schedules.html) for verbs and arguments
 
 
