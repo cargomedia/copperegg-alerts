@@ -1,11 +1,9 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'copperegg/version'
+require File.expand_path('../lib/copperegg/alerts/version', __FILE__)
 
 Gem::Specification.new do |spec|
   spec.name = 'copperegg-alerts'
-  spec.version = Copperegg::VERSION
+  spec.version = Copperegg::Alerts::VERSION
   spec.summary = 'A very minimalistic Copperegg API client for managing alert schedules'
   spec.description = 'Set and remove alert silencing schedules aka maintenance windows'
   spec.authors = ['Cargo Media', 'ppp0']
@@ -22,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.3.2'
   spec.add_development_dependency 'rspec', '~> 3.1.0'
   spec.add_development_dependency 'webmock', '~> 1.18.0'
+  spec.add_development_dependency 'safe_yaml', '~> 1.0.4'
   spec.add_development_dependency 'vcr', '~> 2.9.3'
   spec.add_development_dependency 'hashdiff', '~> 0.2.1'
 end
