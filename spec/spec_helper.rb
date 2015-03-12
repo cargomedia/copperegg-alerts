@@ -1,4 +1,3 @@
-require 'copperegg'
 require 'webmock'
 require 'vcr'
 

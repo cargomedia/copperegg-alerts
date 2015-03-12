@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'copperegg'
+require 'copperegg/alerts'
 
 describe Copperegg::Alerts::Client do
 

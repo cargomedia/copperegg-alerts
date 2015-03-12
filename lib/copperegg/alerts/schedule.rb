@@ -1,5 +1,5 @@
 require 'deep_merge'
-require 'copperegg/alerts/client'
+require 'copperegg/alerts'
 
 
 module Copperegg
@@ -7,17 +7,17 @@ module Copperegg
     class Schedule
       attr_reader :schedules
 
-      def self.initialize
+      def initialize
         @client = Copperegg::Alerts::Client.instance
         @schedules = @client.get('alerts/schedules.json')
       end
 
-      def set(name, tags = {})
+      def create(name, tags = {})
         delete(name)
-        create(name, tags)
+        add(name, tags)
       end
 
-      def modify(name, *args)
+      def update(name, *args)
         body = {}
         args.each { |arg| body.deep_merge!(arg) }
         selected_schedules = @schedules.select { |h| h['name'] == name }
@@ -34,7 +34,7 @@ module Copperegg
         end
       end
 
-      def create(name, *args)
+      def add(name, *args)
         defaults = {
             'name' => name,
             'state' => 'enabled',
