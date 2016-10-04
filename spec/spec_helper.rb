@@ -4,7 +4,7 @@ require 'vcr'
 module Copperegg
   module Alerts
     module Test
-      API_KEY = 'foo'
+      API_KEY = 'foo'.freeze
     end
   end
 end

@@ -1,7 +1,6 @@
 require 'deep_merge'
 require 'copperegg/alerts'
 
-
 module Copperegg
   module Alerts
     class Schedule
@@ -25,26 +24,25 @@ module Copperegg
           @schedules -= selected_schedules
           selected_schedules.each do |s|
             result = @client.put?("alerts/schedules/#{s['id']}.json", body)
-            if result == nil
-              @schedules << s
-            else
-              @schedules << result
-            end
+            @schedules << if result.nil?
+                            s
+                          else
+                            result
+                          end
           end
         end
       end
 
       def add(name, *args)
         defaults = {
-            'name' => name,
-            'state' => 'enabled',
-            'duration' => 10,
-            'start_time' => Time.now.gmtime.strftime('%Y-%m-%dt%H:%M:%Sz'),
+          'name' => name,
+          'state' => 'enabled',
+          'duration' => 10,
+          'start_time' => Time.now.gmtime.strftime('%Y-%m-%dt%H:%M:%Sz')
         }
         args.each { |arg| defaults.deep_merge!(arg) }
-        if result = @client.post?('alerts/schedules.json', defaults)
-          @schedules << result.parsed_response
-        end
+        result = @client.post?('alerts/schedules.json', defaults)
+        @schedules << result.parsed_response if result
       end
 
       def delete(name)
@@ -52,7 +50,7 @@ module Copperegg
         if selected_schedules
           @schedules -= selected_schedules
           selected_schedules.each do |s|
-            if @client.delete?("alerts/schedules/#{s['id']}.json") == nil
+            if @client.delete?("alerts/schedules/#{s['id']}.json").nil?
               @schedules << s
             end
           end
@@ -61,4 +59,3 @@ module Copperegg
     end
   end
 end
-

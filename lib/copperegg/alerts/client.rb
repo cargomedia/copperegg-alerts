@@ -14,16 +14,16 @@ module Copperegg
       end
 
       def auth_setup(api_key)
-        @auth = {:basic_auth => {:username => api_key, :password => 'U'}}
-        return self
+        @auth = { basic_auth: { username: api_key, password: 'U' } }
+        self
       end
 
-      JSON = {'content-type' => 'application/json'}
+      JSON = { 'content-type' => 'application/json' }.freeze
 
       def method_missing(method, resource, *args)
         if method.to_s =~ /\?$/
           method = method.to_s.sub!(/\?$/, '')
-          result = self.send(method.to_sym, resource, *args)
+          result = send(method.to_sym, resource, *args)
           return result if result.code == 200
         end
       end
@@ -49,7 +49,7 @@ module Copperegg
       def _send(method, path, body = {})
         auth = @auth.clone
         unless body.empty?
-          auth.merge!({:headers => JSON}.merge!({:body => body.to_json}))
+          auth.merge!({ headers: JSON }.merge!(body: body.to_json))
         end
         response = HTTParty.send(method.to_sym, @api_base_uri + path, auth.to_hash)
         if response.code != 200
@@ -57,7 +57,6 @@ module Copperegg
         end
         response
       end
-
     end
   end
 end

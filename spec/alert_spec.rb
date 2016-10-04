@@ -6,18 +6,16 @@ require 'copperegg/alerts'
 
 describe Copperegg::Alerts::Schedule do
   before :each do
-
     Copperegg::Alerts::Client.instance.auth_setup(Copperegg::Alerts::Test::API_KEY)
 
-    VCR.use_cassette('schedules', :record => :once, :match_requests_on => [:method, :path]) do
+    VCR.use_cassette('schedules', record: :once, match_requests_on: [:method, :path]) do
       @schedule = Copperegg::Alerts::Schedule.new
     end
-
   end
 
   describe '#new' do
     it 'requests a list of all schedules' do
-      expect(@schedule.schedules.size > 0).to be(true)
+      expect(!@schedule.schedules.empty?).to be(true)
       expect(WebMock).to have_requested(:get, /\/alerts\/schedules\.json$/).once
     end
   end
@@ -25,8 +23,8 @@ describe Copperegg::Alerts::Schedule do
   describe 'create schedule' do
     it 'creates three new schedules with name "spec_test"' do
       alerts_schedules_list_size_before = @schedule.schedules.size
-      VCR.use_cassette('schedule_create', :record => :once, :match_requests_on => [:body_as_json], :allow_playback_repeats => true) do
-        3.times { @schedule.add('spec_test', 'match' => {'tag' => ['foo']}, 'state' => 'disabled', 'duration' => 7, 'start_time' => '2014-09-14T10:21:40Z') }
+      VCR.use_cassette('schedule_create', record: :once, match_requests_on: [:body_as_json], allow_playback_repeats: true) do
+        3.times { @schedule.add('spec_test', 'match' => { 'tag' => ['foo'] }, 'state' => 'disabled', 'duration' => 7, 'start_time' => '2014-09-14T10:21:40Z') }
       end
       expect(@schedule.schedules.size - alerts_schedules_list_size_before).to eq(3)
     end
@@ -34,15 +32,15 @@ describe Copperegg::Alerts::Schedule do
 
   describe 'reset_schedules("spec_test")' do
     before :each do
-      VCR.use_cassette('schedule_create', :record => :once, :match_requests_on => [:body_as_json], :allow_playback_repeats => true) do
-        3.times { @schedule.add('spec_test', 'match' => {'tag' => ['foo']}, 'state' => 'disabled', 'duration' => 7, 'start_time' => '2014-09-14T10:21:40Z') }
+      VCR.use_cassette('schedule_create', record: :once, match_requests_on: [:body_as_json], allow_playback_repeats: true) do
+        3.times { @schedule.add('spec_test', 'match' => { 'tag' => ['foo'] }, 'state' => 'disabled', 'duration' => 7, 'start_time' => '2014-09-14T10:21:40Z') }
       end
       expect(WebMock).to have_requested(:post, /\/alerts\/schedules\.json$/).times(3)
     end
 
     it 'removes all schedules with name "spec_test" from the list if any' do
       alerts_schedules_list_size_before = @schedule.schedules.size
-      VCR.use_cassette('schedule_reset', :record => :once, :match_requests_on => [:method, :path]) do
+      VCR.use_cassette('schedule_reset', record: :once, match_requests_on: [:method, :path]) do
         @schedule.delete('spec_test')
       end
       expect(alerts_schedules_list_size_before - @schedule.schedules.size).to eq(3)
@@ -51,7 +49,7 @@ describe Copperegg::Alerts::Schedule do
 
     it 'deletes schedules from the instance list variable only if api call was successful' do
       alerts_schedules_list_size_before = @schedule.schedules.size
-      VCR.use_cassette('schedule_reset_with_error', :record => :once, :match_requests_on => [:method, :path]) do
+      VCR.use_cassette('schedule_reset_with_error', record: :once, match_requests_on: [:method, :path]) do
         expect { @schedule.delete('spec_test') }.to raise_error(RuntimeError, /HTTP.*failed/)
       end
       expect(alerts_schedules_list_size_before - @schedule.schedules.size).to eq(3)
@@ -59,20 +57,19 @@ describe Copperegg::Alerts::Schedule do
     end
   end
 
-
   describe 'modify schedule' do
     before :each do
-      VCR.use_cassette('schedule_create', :record => :once, :match_requests_on => [:body_as_json], :allow_playback_repeats => true) do
-        @schedule.create('spec_test', 'match' => {'tag' => ['foo']}, 'state' => 'disabled', 'duration' => 7, 'start_time' => '2014-09-14T10:21:40Z')
+      VCR.use_cassette('schedule_create', record: :once, match_requests_on: [:body_as_json], allow_playback_repeats: true) do
+        @schedule.create('spec_test', 'match' => { 'tag' => ['foo'] }, 'state' => 'disabled', 'duration' => 7, 'start_time' => '2014-09-14T10:21:40Z')
       end
       expect(WebMock).to have_requested(:post, /\/alerts\/schedules\.json$/).once
     end
 
     it 'modifies a schedule with name "spec_test"' do
-      schedule_name='spec_test'
+      schedule_name = 'spec_test'
       alert_schedule_before = @schedule.schedules.select { |schedule| schedule['name'] == schedule_name }
-      VCR.use_cassette('schedule_modify', :record => :once, :match_requests_on => [:body_as_json], :allow_playback_repeats => true) do
-        @schedule.update(schedule_name, {'duration' => 33, 'state' => 'enabled'})
+      VCR.use_cassette('schedule_modify', record: :once, match_requests_on: [:body_as_json], allow_playback_repeats: true) do
+        @schedule.update(schedule_name, 'duration' => 33, 'state' => 'enabled')
       end
       alert_schedule_after = @schedule.schedules.select { |schedule| schedule['name'] == schedule_name }
       diff = HashDiff.diff(alert_schedule_before.first, alert_schedule_after.first)
@@ -80,5 +77,4 @@ describe Copperegg::Alerts::Schedule do
       expect(WebMock).to have_requested(:put, /.*alerts\/schedules\/\d+\.json$/).once
     end
   end
-
 end

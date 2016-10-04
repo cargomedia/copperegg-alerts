@@ -1,0 +1,21 @@
+Metrics/AbcSize:
+  Max: 16
+
+Metrics/LineLength:
+  Max: 159
+
+Metrics/MethodLength:
+  Max: 14
+
+Style/CaseEquality:
+  Exclude:
+    - 'spec/client_spec.rb'
+
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
+Style/RegexpLiteral:
+  Exclude:
+    - 'spec/alert_spec.rb'
