@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'safe_yaml', '~> 1.0.4'
   spec.add_development_dependency 'vcr', '~> 2.9.3'
   spec.add_development_dependency 'hashdiff', '~> 0.2.1'
+  spec.add_development_dependency 'rubocop', '~> 0.41.2'
 end
