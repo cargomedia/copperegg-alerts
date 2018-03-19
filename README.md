@@ -1,3 +1,8 @@
+UNMAINTAINED
+============
+This project is not maintained anymore.
+If you want to take over contact us at tech@cargomedia.ch.
+
 Copperegg::Alerts [![Build Status](https://travis-ci.org/cargomedia/copperegg-alerts.png)](https://travis-ci.org/cargomedia/copperegg-alerts)
 =================
 
